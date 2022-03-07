@@ -1,6 +1,16 @@
+-- TODAS LAS SENTENCIAS SE REALIZARON EN MARIADB
 -- crear base de datos
 CREATE DATABASE IF NOT EXISTS store_sofka_db;
 USE store_sofka_db;
+
+-- Sentencias para iniciar la base de datos desde 0
+DROP TABLE if EXISTS sale_detail;
+DROP TABLE if EXISTS product_supplier;
+DROP TABLE if EXISTS product;
+DROP TABLE if EXISTS supplier;
+DROP TABLE if EXISTS sale;
+DROP TABLE if EXISTS customer;
+DROP TABLE if EXISTS seller;
 
 -- 1. Creacioin de tablas
 - crear tabla proveedor
@@ -93,7 +103,7 @@ CREATE TABLE IF NOT EXISTS product_supplier (
 	id_product_supplier INT(10) NOT NULL AUTO_INCREMENT,
 	product_id INT(10) NOT NULL DEFAULT 0,
 	supplier_id INT(10) NOT NULL DEFAULT 0,
-	since DATE NOT NULL,
+	since DATETIME NOT NULL,
 	PRIMARY KEY (id_product_supplier)
 )ENGINE=InnoDB
 COMMENT='table for storing historical product supplier information'
@@ -104,8 +114,8 @@ COLLATE='utf8mb4_0900_ai_ci'
 -- Para cuando se ingresan nuevos roductos
 DROP TRIGGER IF EXISTS INSERT_PRODUCT_SUPPLIER;
 
-CREATE TRIGGER INSERT_PRODUCT_SUPPLIER AFTER INSERT ON product FOR EACH ROW INSERT INTO product_supplier 
-(product_id, supplier_id, since) VALUES (NEW.id_product, NEW.supplier_id, CURDATE());
+CREATE TRIGGER INSERT_PRODUCT_SUPPLIER AFTER INSERT ON product FOR EACH ROW INSERT INTO product_supplier
+(product_id, supplier_id, since) VALUES (NEW.id_product, NEW.supplier_id, NOW());
 
 -- Para cuando se actualiza proveedor en porductos
 DROP TRIGGER IF EXISTS UPDATE_PRODUCT_SUPPLIER;
@@ -113,7 +123,7 @@ DELIMITER $$
 CREATE TRIGGER UPDATE_PRODUCT_SUPPLIER BEFORE UPDATE ON product FOR EACH ROW
 BEGIN
 IF OLD.supplier_id != NEW.supplier_id THEN
-INSERT INTO product_supplier (product_id, supplier_id, since) VALUES (NEW.id_product, NEW.supplier_id, CURDATE());
+INSERT INTO product_supplier (product_id, supplier_id, since) VALUES (NEW.id_product, NEW.supplier_id, NOW());
 END IF;
 END $$
 DELIMITER ;
@@ -154,11 +164,11 @@ VALUES
 -- datos de venta
 INSERT INTO sale (customer_id, seller_id, sale_invoice, sale_date)
 VALUES
-  (2,1,"YO-056", CURDATE()),
-  (2,1,"WK-318", ADDDATE(CURDATE(), INTERVAL 1 DAY)),
-  (4,1,"NZ-633", ADDDATE(CURDATE(), INTERVAL 1 DAY)),
-  (3,1,"CC-559", ADDDATE(CURDATE(), INTERVAL 2 DAY)),
-  (3,1,"LX-428", ADDDATE(CURDATE(), INTERVAL 3 DAY));
+  (2,1,"YO-056", NOW()),
+  (2,1,"WK-318", ADDDATE(NOW(), INTERVAL 1 DAY)),
+  (4,1,"NZ-633", ADDDATE(NOW(), INTERVAL 1 DAY)),
+  (3,1,"CC-559", ADDDATE(NOW(), INTERVAL 2 DAY)),
+  (3,1,"LX-428", ADDDATE(NOW(), INTERVAL 3 DAY));
 
 -- datos de detalle venta
 INSERT INTO sale_detail (sale_id, product_id, quantity, unit_price, subtotal)

@@ -1,3 +1,4 @@
+-- TODAS LAS CONSULTAS SE REALIZARON EN MARIADB
 -- 1. Obtener productos vendidos por tipo y número de documento
 SELECT c.customer_name AS Customer,  p.product_name AS Product
 FROM sale_detail sd JOIN sale s ON sd.sale_id = s.id_sale
