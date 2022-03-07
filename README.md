@@ -1,10 +1,13 @@
 # Taller SQL Sofka
 Taller de sentencias SQL
 ## Primer script
-> Crear las tablas requeridas con las relaciones necesarias
-Llenar las tablas con información previa para poder manipular la base de datos a nivel de datos.
-Realizar dos borrados lógicos y dos borrados físicos de ventas realizadas.
-Modificar tres productos en su nombre y proveedor que los provee.
+
+    Crear las tablas requeridas con las relaciones necesarias
+    Llenar las tablas con información previa para poder manipular la base de datos a nivel de datos.
+    Realizar dos borrados lógicos y dos borrados físicos de ventas realizadas.
+    Modificar tres productos en su nombre y proveedor que los provee.
+    
+
 
 ## Segundo script
 1. Consulta SQL donde pueda obtener los productos vendidos digitando tipo de documento y número de documento.
