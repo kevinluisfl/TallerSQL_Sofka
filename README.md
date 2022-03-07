@@ -1,4 +1,4 @@
-# Taller SQL Sofka - Hecho en MARIADB
+# Taller SQL Sofka - Hecho en ``MARIADB``
 Taller de sentencias SQL
 ## Primer script
     1. Crear las tablas requeridas con las relaciones necesarias
