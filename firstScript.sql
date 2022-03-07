@@ -109,10 +109,9 @@ CREATE TRIGGER INSERT_PRODUCT_SUPPLIER AFTER INSERT ON product FOR EACH ROW INSE
 
 -- Para cuando se actualiza proveedor en porductos
 DROP TRIGGER IF EXISTS UPDATE_PRODUCT_SUPPLIER;
-
 DELIMITER $$
-CREATE TRIGGER UPDATE_PRODUCT_SUPPLIER BEFORE UPDATE ON product FOR EACH ROW 
-BEGIN 
+CREATE TRIGGER UPDATE_PRODUCT_SUPPLIER BEFORE UPDATE ON product FOR EACH ROW
+BEGIN
 IF OLD.supplier_id != NEW.supplier_id THEN
 INSERT INTO product_supplier (product_id, supplier_id, since) VALUES (NEW.id_product, NEW.supplier_id, CURDATE());
 END IF;
@@ -120,6 +119,7 @@ END $$
 DELIMITER ;
 
 -- 2. inserción de información
+-- datos de proveedor
 INSERT INTO supplier (nit, supplier_name, supplier_phone)
 VALUES
 	("123953304","Carlos Jefferson","1-618-705-1891"),
@@ -128,6 +128,7 @@ VALUES
 	("68776902","Bruno Monroe","(693) 452-4545"),
 	("41500530K","Cameron Garner","(683) 364-1311");
 
+-- datos de cliente
 INSERT INTO customer (customer_name, type_id, number_id, customer_phone)
 VALUES
 	("Derek Jones","CC","618935861","1-285-614-8953"),
@@ -136,6 +137,7 @@ VALUES
 	("Skyler Allison","CC","136823322","1-610-467-8675"),
 	("Macon Morrow","CC","842892453","(850) 651-8776");
 
+-- datos de producto
 INSERT INTO product (supplier_id, product_name, description, price)
 VALUES
 	(2,"Sibasa","commodo ipsum. Suspendisse non leo.",493.88),
@@ -144,11 +146,12 @@ VALUES
   	(3,"Glendon","libero. Donec consectetuer mauris id",924.82),
   	(1,"Rance","nunc id enim. Curabitur massa.",211.03);
 
-
+-- datos vendedor - el taller indica que solo hay 1
 INSERT INTO seller (seller_name, position_seller)
 VALUES
 	("Barrett Rivas","propietario");
 
+-- datos de venta
 INSERT INTO sale (customer_id, seller_id, sale_invoice, sale_date)
 VALUES
   (2,1,"YO-056", CURDATE()),
@@ -157,7 +160,7 @@ VALUES
   (3,1,"CC-559", ADDDATE(CURDATE(), INTERVAL 2 DAY)),
   (3,1,"LX-428", ADDDATE(CURDATE(), INTERVAL 3 DAY));
 
-
+-- datos de detalle venta
 INSERT INTO sale_detail (sale_id, product_id, quantity, unit_price, subtotal)
 VALUES
 	(1,3,23, 66.87, 1538.01),
@@ -185,11 +188,7 @@ DELETE FROM sale WHERE id_sale = 2;
 DELETE FROM sale WHERE id_sale = 4;
 
 -- 4. Modificar tres productos en su nombre y proveedor
-UPDATE product SET product_name = 'Pera', supplier_id = 4
-WHERE id_product = 1;
-
-UPDATE product SET product_name = 'Manzana', supplier_id = 3
-WHERE id_product = 3;
-
-UPDATE product SET product_name = 'Aguacate', supplier_id = 4
-WHERE id_product = 5;
+-- actualizacion de nombre producto y proveedor
+UPDATE product SET product_name = 'Pera', supplier_id = 4 WHERE id_product = 1;
+UPDATE product SET product_name = 'Manzana', supplier_id = 3 WHERE id_product = 3;
+UPDATE product SET product_name = 'Aguacate', supplier_id = 4 WHERE id_product = 5;
