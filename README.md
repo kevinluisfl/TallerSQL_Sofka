@@ -11,4 +11,5 @@ Taller de sentencias SQL
 ## Segundo script
     1. Consulta SQL donde pueda obtener los productos vendidos digitando tipo de documento y número de documento.
     2. Consultar productos por medio del nombre, el cual debe mostrar quien o quienes han sido sus proveedores.
-    3. [PLUS no obligatorio] Crear una consulta que me permita ver qué producto ha sido el más vendido y en qué cantidades de mayor a menor.
+    3. [PLUS no obligatorio] Crear una consulta que me permita ver qué producto ha sido el más vendido 
+    y en qué cantidades de mayor a menor.
