@@ -13,7 +13,7 @@ DROP TABLE if EXISTS customer;
 DROP TABLE if EXISTS seller;
 
 -- 1. Creacioin de tablas
-- crear tabla proveedor
+-- crear tabla proveedor
 CREATE TABLE IF NOT EXISTS supplier (
 	id_supplier INT(10) NOT NULL AUTO_INCREMENT,
 	nit VARCHAR(15) NOT NULL DEFAULT '',
@@ -175,17 +175,17 @@ INSERT INTO sale_detail (sale_id, product_id, quantity, unit_price, subtotal)
 VALUES
 	(1,3,23, 66.87, 1538.01),
 	(1,2,41, 83.99, 3443.59),
-	(1,2,78, 21.00, 1638),
-	(1,3,13, 59.03, 767.39),
+	(1,4,78, 21.00, 1638),
+	(1,1,13, 59.03, 767.39),
 	(2,5,53, 19.10, 1012.3),
 	(2,2,13, 59.92, 778.96),
-	(2,5,95, 94.64, 8990.8),
-	(3,4,77, 98.49, 7583.73),
+	(2,3,95, 94.64, 8990.8),
+	(3,2,77, 98.49, 7583.73),
 	(3,4,26, 73.58, 1913.08),
-	(3,4,82, 31.14, 2553.48),
+	(3,5,82, 31.14, 2553.48),
 	(4,5,15, 62.56, 938.4),
 	(4,2,99, 44.22, 4377.78),
-	(4,5,3, 30.62, 91.86),
+	(4,1,3, 30.62, 91.86),
 	(4,4,21, 43.43, 912.03),
 	(5,4,53, 33.67, 1784.51);
 
@@ -202,3 +202,7 @@ DELETE FROM sale WHERE id_sale = 4;
 UPDATE product SET product_name = 'Pera', supplier_id = 4 WHERE id_product = 1;
 UPDATE product SET product_name = 'Manzana', supplier_id = 3 WHERE id_product = 3;
 UPDATE product SET product_name = 'Aguacate', supplier_id = 4 WHERE id_product = 5;
+
+-- probando que lleve registro en product_supplier solo cuando cambia el proveedor
+UPDATE product SET supplier_id = 1 WHERE id_product = 3;
+UPDATE product SET product_name = 'Limone' WHERE id_product = 4;
